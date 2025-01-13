@@ -1,6 +1,10 @@
 <h1>Add new recipe</h1>
 <%= simple_form_for [@category, @bookmark] do |f| %>
 <%= f.input :comment %>
+<br>
 <%= f.association :recipe %>
+<br>
 <%= f.submit %>
 <% end %>
+<br>
+<%= link_to "Back", categories_path %>
