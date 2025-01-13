@@ -1,0 +1,14 @@
+<div style= "display: flex; justify-content: space-between; padding: 2rem;"><h1><%= @category.name %></h1>
+<h4> <%= link_to "Add Bookmark", new_category_bookmarks_path(@category) %></h4></div>
+
+<ul>
+  <% @category.bookmarks.each do |bookmark| %>
+    <li>
+      <%= bookmark.recipe.name %> |
+      <%= link_to "Delete", bookmark_path(bookmark),
+      data:{turbo_method: :delete, turbo_confirm: "Are you sure?"}
+      %>
+    </li>
+    <% end %>
+</ul>
+    <%= link_to "Back to Categories", categories_path %>
