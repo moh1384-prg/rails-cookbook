@@ -1,14 +1,34 @@
-<div style= "display: flex; justify-content: space-between; padding: 2rem;"><h1><%= @category.name %></h1>
-<h4> <%= link_to "Add Bookmark", new_category_bookmarks_path(@category) %></h4></div>
+<div
+  class="banner"
+  style="background-image: url('https://github.com/moh1384-prg/rails-cookbook/blob/master/app/assets/images/Banner.jpg?raw=true'); height: 300px; background-size: cover; background-position: center;">
+<div class="banner-text">
+<h2><%= @category.name %></h2>
+</div>
+</div>
+<div class="container">
+  <div class="info-top">
+    <h3>Recipes</h3>
+    <%= link_to 'Add a recipe', new_category_bookmarks_path(@category), class: "btn btn-warning" %>
+  </div>
 
-<ul>
+
+<div class="cards">
   <% @category.bookmarks.each do |bookmark| %>
-    <li>
-      <%= bookmark.recipe.name %> |
-      <%= link_to "Delete", bookmark_path(bookmark),
-      data:{turbo_method: :delete, turbo_confirm: "Are you sure?"}
-      %>
-    </li>
-    <% end %>
-</ul>
-    <%= link_to "Back to Categories", categories_path %>
+   <div class="card-recipe">
+    <img src="<%= bookmark.recipe.image_url%>" alt="recipe image">
+    <div class="card-recipe-description">
+      <h2><%= bookmark.recipe.name %></h2>
+      <p><%= bookmark.recipe.description.truncate(200) %></p>
+    </div>
+    <div class="card-recipe-info">
+      <div>
+        <%= bookmark.comment %>
+      </div>
+      <div>
+        <%= bookmark.recipe.rating %> <%= '⭐' * bookmark.recipe.rating%>
+      </div>
+    </div>
+   </div>
+   <% end %>
+</div>
+</div>

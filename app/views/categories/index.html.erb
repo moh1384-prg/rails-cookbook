@@ -1,43 +1,20 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">
-      <img src="https://github.com/moh1384-prg/rails-cookbook/blob/master/app/assets/images/logo.png?raw=true" />
+<%= render "shared/banner" %>
 
-</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">New Category</a>
-          </li>
-          <!--li class="nav-item"-->
-          <!--/li-->
-      </ul>
-    </div>
+<div class="container">
+  <div class="info-top">
+    <h3>List of categories</h3>
+    <%= link_to 'New Category', new_category_path, class: "btn btn-warning" %>
   </div>
-</div>
-<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/background.png);">
-  <div class="container">
-    <h1>Cookbook <strong>tech skills</strong> to <strong>creative people</strong>!</h1>
-    <p>Change your life and learn to code at one of our campuses around the world.</p>
-    <a class="btn btn-flat" href="#">Apply now</a>
+
+  <div class="cards">
+    <% @categories.each do |category| %>
+      <%= link_to category_path(category) do %>
+        <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= image_path "category.jpg" %>)">
+          <h2><%= category.name %></h2>
+        </div>
+      <% end %>
+    <% end %>
+
   </div>
+
 </div>
-
-
-
-
-<h1>Categories</h1>
-<ul>
-  <% @categories.each do |category|  %>
-    <li>
-      <%= link_to category.name, category_path(category) %>
-    </li>
-  <% end %>
-</ul>
