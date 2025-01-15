@@ -15,6 +15,13 @@
 <div class="cards">
   <% @category.bookmarks.each do |bookmark| %>
    <div class="card-recipe">
+
+    <%= link_to bookmark_path(bookmark),
+       data: { turbo_method: :delete,
+               turbo_confirm: "are you sure?" }, class: "btn-delete" do %>
+     <i class="fa-solid fa-trash"></i>
+
+     <% end %>
     <img src="<%= bookmark.recipe.image_url%>" alt="recipe image">
     <div class="card-recipe-description">
       <h2><%= bookmark.recipe.name %></h2>
