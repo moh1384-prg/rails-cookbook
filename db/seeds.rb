@@ -11,22 +11,40 @@
 require "json"
 require "open-uri"
 
-# Clear existing records
+# # Clear existing records
 
 Recipe.destroy_all
 
 
 puts "Creating Recipes"
-# Create recipes
+# # Create recipes
 
 categories = ["Breakfast", "Seafood", "Dessert", "Vegetarian"]
+
+def recipe_builder(id)
+  url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=#{id}"
+  meals_serialized = URI.parse(url).read
+  meal = JSON.parse(meals_serialized)["meals"][0]
+
+  puts "Creating #{meal["strMeal"]}"
+  Recipe.create!(
+    name: meal["strMeal"],
+    description: meal["strInstructions"],
+    image_url: meal["strMealThumb"],
+    rating: rand(2..5.0).floor(1)
+  )
+end
 
 categories.each do |category|
   url = "https://www.themealdb.com/api/json/v1/1/filter.php?c=#{category}"
   recipes_serialized = URI.parse(url).read
   recipes = JSON.parse(recipes_serialized)
   puts "Parsed data: #{recipes}"
-  recipes["meals"].each do |recipe|
-    p recipe["idMeal"]
+  recipes["meals"].take(5).each do |recipe|
+    recipe_builder(recipe["idMeal"])
   end
 end
+
+
+
+
